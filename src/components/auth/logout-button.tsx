@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useAuth } from '@/hooks/use-auth';
 
 interface LogoutButtonProps {
@@ -14,17 +14,21 @@ export function LogoutButton({
     children,
     variant = 'button'
 }: LogoutButtonProps) {
-    const { signOut, isLoading } = useAuth();
+    const { signOut } = useAuth();
+    const [busy, setBusy] = useState(false);
 
     const handleLogout = async () => {
-        if (isLoading) return;
-
         try {
+            if (busy) return;
+            setBusy(true);
             await signOut();
             // Redirect to home page after logout
             window.location.href = '/';
         } catch (error) {
             console.error('Logout error:', error);
+        }
+        finally {
+            setBusy(false);
         }
     };
 
@@ -35,10 +39,10 @@ export function LogoutButton({
     return (
         <button
             onClick={handleLogout}
-            disabled={isLoading}
+            disabled={busy}
             className={`${baseClasses} ${className}`}
         >
-            {isLoading ? (
+            {busy ? (
                 <div className="flex items-center">
                     <svg
                         className="animate-spin -ml-1 mr-2 h-4 w-4"

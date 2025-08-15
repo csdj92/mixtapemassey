@@ -13,7 +13,7 @@ export const signInWithEmail = async (email: string) => {
     const { data, error } = await supabase.auth.signInWithOtp({
         email,
         options: {
-            emailRedirectTo: `${window.location.origin}/admin/dashboard`,
+            emailRedirectTo: `${window.location.origin}/api/auth/callback?next=/admin/dashboard`,
             shouldCreateUser: false // Only allow existing users
         }
     });
