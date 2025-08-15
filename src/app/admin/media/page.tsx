@@ -66,7 +66,7 @@ function AdminMediaContent() {
                 alt_text: newAltText || null,
                 is_press: newPhotoType === 'press',
                 display_order: photos.length + 1,
-            } as any);
+            });
             setPhotos((prev) => [...prev, created]);
             setNewAltText('');
             if (fileInputRef.current) fileInputRef.current.value = '';

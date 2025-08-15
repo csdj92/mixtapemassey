@@ -35,15 +35,16 @@ function CMSContent() {
         if (!settings) return;
         try {
             setSaving(true);
-            const updated = await updateSettings({
+            const payload: Partial<Settings> = {
                 site_title: settings.site_title,
                 hero_heading: settings.hero_heading,
                 hero_sub: settings.hero_sub,
-                bio: settings.bio || undefined,
+                bio: settings.bio,
                 socials: settings.socials,
-                rider_file_url: settings.rider_file_url || undefined,
-                logo_url: settings.logo_url || undefined,
-            });
+            };
+            if (settings.logo_url) payload.logo_url = settings.logo_url;
+            if (settings.rider_file_url) payload.rider_file_url = settings.rider_file_url;
+            const updated = await updateSettings(payload);
             setSettings(updated);
         } catch (err: any) {
             setError(err?.message || 'Failed to save settings');

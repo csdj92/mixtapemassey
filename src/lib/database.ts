@@ -115,11 +115,13 @@ export const getPressPhotos = async () => {
     return data as MediaPhoto[];
 };
 
-export const createMediaPhoto = async (photo: Omit<MediaPhoto, 'id' | 'created_at' | 'updated_at'>) => {
-    return withErrorHandling(async () =>
+export const createMediaPhoto = async (
+    photo: Omit<MediaPhoto, 'id' | 'created_at' | 'updated_at'>
+): Promise<MediaPhoto> => {
+    return withErrorHandling<MediaPhoto>(async () =>
         supabase
             .from('media_photos')
-            .insert(photo)
+            .insert(photo as any)
             .select()
             .single()
     );
