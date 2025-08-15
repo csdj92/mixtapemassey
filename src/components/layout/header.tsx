@@ -63,6 +63,7 @@ export function Header() {
                             key={item.name}
                             href={item.href}
                             className="text-sm font-semibold leading-6 text-foreground hover:text-primary transition-colors"
+                            style={{ display: item.name === 'About' || item.name === 'Request' ? 'none' : undefined }}
                         >
                             {item.name}
                         </Link>
@@ -109,6 +110,7 @@ export function Header() {
                                                 href={item.href}
                                                 className="-mx-3 block rounded-lg px-3 py-3 text-lg font-semibold leading-7 text-foreground hover:bg-muted"
                                                 onClick={() => setMobileMenuOpen(false)}
+                                                style={{ display: item.name === 'About' || item.name === 'Request' ? 'none' : undefined }}
                                             >
                                                 {item.name}
                                             </Link>
